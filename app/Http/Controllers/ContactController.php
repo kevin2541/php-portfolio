@@ -8,18 +8,6 @@ use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-    /**
-     * Display a listing of contact messages (admin).
-     */
-    public function index()
-    {
-        $contacts = Contact::latest()->paginate(10);
-        return view('admin.contacts.index', compact('contacts'));
-    }
-
-    /**
-     * Show the contact form.
-     */
     public function create()
     {
         $about = About::first();
@@ -44,24 +32,5 @@ class ContactController extends Controller
 
         return redirect()->route('contact')
             ->with('success', 'Your message has been sent successfully!');
-    }
-
-    /**
-     * Display a specific contact message (admin).
-     */
-    public function show(Contact $contact)
-    {
-        $contact->update(['read' => true]);
-        return view('admin.contacts.show', compact('contact'));
-    }
-
-    /**
-     * Delete a contact message (admin).
-     */
-    public function destroy(Contact $contact)
-    {
-        $contact->delete();
-        return redirect()->route('admin.contacts.index')
-            ->with('success', 'Message deleted successfully.');
     }
 }
